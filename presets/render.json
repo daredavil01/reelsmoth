@@ -1,0 +1,108 @@
+{
+  "$comment": "One entry per destination. scripts/encode.sh reads this and makes each file from the master with a single FFmpeg encode. Placeholders in args: {GOP_HALF} = half the master frame rate. shortSide scales so the shorter edge is that many px (never upscales). budgetMB triggers a two-pass re-encode to fit if the CRF encode comes out too big. Specs verified Oct 2026; see docs/playbook.md for sources.",
+  "presets": {
+    "youtube": {
+      "description": "YouTube landscape. H.264 High 4:2:0, BT.709, closed GOP of half the fps, 2 B-frames, AAC-LC 48 kHz. Upload a --scale=2 (4K) master for crisper text after YouTube's re-encode.",
+      "aspect": "landscape",
+      "maxFps": 60,
+      "outputs": [
+        {
+          "file": "youtube.mp4",
+          "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "16", "-profile:v", "high", "-g", "{GOP_HALF}", "-bf", "2", "-flags", "+cgop", "-c:a", "aac", "-b:a", "384k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart"]
+        }
+      ]
+    },
+    "shorts": {
+      "description": "YouTube Shorts, Instagram Reels, TikTok. 1080x1920 9:16. A Short is 3 min or less. Keep text out of the top 14%, bottom 35% and 6% each side.",
+      "aspect": "portrait",
+      "shortSide": 1080,
+      "maxFps": 60,
+      "maxDurationS": 180,
+      "outputs": [
+        {
+          "file": "shorts.mp4",
+          "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "18", "-profile:v", "high", "-maxrate", "15M", "-bufsize", "30M", "-g", "{GOP_HALF}", "-bf", "2", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart"]
+        }
+      ]
+    },
+    "whatsapp": {
+      "description": "WhatsApp chat video. Chats accept 100 MB at 720p on fast connections and 64 MB at 480p on slow ones, so target 720p CRF 23 and keep under 60 MB. For full quality send the master or youtube export as a Document (up to 2 GB). Status: 90 s max, no HD.",
+      "aspect": "any",
+      "shortSide": 720,
+      "maxFps": 30,
+      "budgetMB": 60,
+      "outputs": [
+        {
+          "file": "whatsapp.mp4",
+          "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "23", "-profile:v", "main", "-g", "{GOP_HALF}", "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart"]
+        }
+      ]
+    },
+    "whatsapp-api": {
+      "description": "WhatsApp Cloud API (automated business messages): 16 MB cap, H.264 + AAC.",
+      "aspect": "any",
+      "shortSide": 720,
+      "maxFps": 30,
+      "budgetMB": 15,
+      "outputs": [
+        {
+          "file": "whatsapp-api.mp4",
+          "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "26", "-profile:v", "main", "-g", "{GOP_HALF}", "-c:a", "aac", "-b:a", "96k", "-ar", "44100", "-ac", "2", "-movflags", "+faststart"]
+        }
+      ]
+    },
+    "linkedin": {
+      "description": "LinkedIn feed. MP4 (no MOV), 75 KB-5 GB, 3 s-10 min (mobile/Pages) or 15 min (desktop), up to 4096x2304, 10-60 fps.",
+      "aspect": "any",
+      "shortSide": 1080,
+      "maxFps": 60,
+      "minDurationS": 3,
+      "maxDurationS": 600,
+      "budgetMB": 5000,
+      "outputs": [
+        {
+          "file": "linkedin.mp4",
+          "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "18", "-profile:v", "high", "-g", "{GOP_HALF}", "-bf", "2", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart"]
+        }
+      ]
+    },
+    "x": {
+      "description": "X posts. H.264 High + AAC-LC, up to 60 fps. Posts allow 20 min / 8 GB (no Premium); DMs are capped at 140 s / 512 MB.",
+      "aspect": "any",
+      "shortSide": 1080,
+      "maxFps": 60,
+      "maxDurationS": 1200,
+      "budgetMB": 8000,
+      "outputs": [
+        {
+          "file": "x.mp4",
+          "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "18", "-profile:v", "high", "-g", "{GOP_HALF}", "-bf", "2", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart"]
+        }
+      ]
+    },
+    "web": {
+      "description": "Web embed. List sources AV1 WebM, VP9 WebM, then H.264 MP4; add a poster. Use web-loop for muted autoplay hero loops.",
+      "aspect": "any",
+      "shortSide": 1080,
+      "maxFps": 30,
+      "outputs": [
+        {"file": "web.av1.webm", "args": ["-c:v", "libsvtav1", "-crf", "35", "-preset", "6", "-c:a", "libopus", "-b:a", "96k"]},
+        {"file": "web.vp9.webm", "args": ["-c:v", "libvpx-vp9", "-crf", "33", "-b:v", "0", "-row-mt", "1", "-c:a", "libopus", "-b:a", "96k"]},
+        {"file": "web.mp4", "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "23", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart"]},
+        {"file": "poster.jpg", "poster": true}
+      ]
+    },
+    "web-loop": {
+      "description": "Muted autoplay hero loop: 720p, no audio. Use <video autoplay muted loop playsinline poster>; fall back to the poster under prefers-reduced-motion.",
+      "aspect": "any",
+      "shortSide": 720,
+      "maxFps": 30,
+      "outputs": [
+        {"file": "loop.av1.webm", "args": ["-c:v", "libsvtav1", "-crf", "35", "-preset", "6", "-an"]},
+        {"file": "loop.vp9.webm", "args": ["-c:v", "libvpx-vp9", "-crf", "33", "-b:v", "0", "-row-mt", "1", "-an"]},
+        {"file": "loop.mp4", "args": ["-c:v", "libx264", "-preset", "slow", "-crf", "23", "-an", "-movflags", "+faststart"]},
+        {"file": "loop-poster.jpg", "poster": true}
+      ]
+    }
+  }
+}

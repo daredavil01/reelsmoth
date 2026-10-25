@@ -1,0 +1,16 @@
+node_modules/
+out/
+.env
+.env.*
+!.env.example
+
+# Renders live outside git (R2/S3). Keep briefs, specs, timelines, READMEs.
+videos/*/master.*
+videos/*/draft.*
+videos/*/frames/
+videos/*/stills/
+videos/*/exports/
+videos/*/contact-sheet.png
+*.log
+ffmpeg2pass-*
+.DS_Store

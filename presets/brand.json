@@ -1,0 +1,21 @@
+{
+  "name": "default",
+  "colors": {
+    "bg": "#0E0F12",
+    "surface": "#1A1C21",
+    "text": "#F4F1EA",
+    "muted": "#9A9AA3",
+    "accent": "#FF6B3D"
+  },
+  "fonts": {
+    "display": "Inter, 'Helvetica Neue', Arial, sans-serif",
+    "body": "Inter, 'Helvetica Neue', Arial, sans-serif",
+    "mono": "'JetBrains Mono', 'SFMono-Regular', Menlo, monospace"
+  },
+  "type": {
+    "displayPx": 138,
+    "displayTracking": "-0.02em",
+    "bodyPx": 44
+  },
+  "logo": null
+}

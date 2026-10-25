@@ -1,0 +1,9 @@
+{
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "beats": [
+    {"id": "hook", "start": 0, "duration": 3, "label": "Kicker + headline reveal"},
+    {"id": "cta", "start": 2.6, "duration": 2.4, "label": "Final line, held >= 2 s"}
+  ]
+}
