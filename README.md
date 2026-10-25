@@ -6,7 +6,7 @@ The design and sources are in [`docs/playbook.md`](docs/playbook.md) (corrected 
 
 ## Quick start
 
-Needs Node 20+ and FFmpeg (with libx264, libsvtav1, libvpx-vp9, libopus), plus `jq`.
+Needs Node 20+, Python 3 (stdlib only) and FFmpeg (with libx264, libsvtav1, libvpx-vp9, libopus), plus `jq`.
 
 ```bash
 npm install
@@ -37,6 +37,8 @@ scripts/master.sh <CompId> <slug> --draft            # 540p review draft
 scripts/contact-sheet.sh videos/<slug>/draft.mp4 videos/<slug>/timeline.json
 scripts/flash-scan.sh videos/<slug>/draft.mp4 videos/<slug>/timeline.json   # pops and flashes
 scripts/master.sh <CompId> <slug> [--alpha] [--scale=2]   # ProRes HQ / 4444 master, PNG frames, BT.709
+python3 scripts/find-drop.py public/audio/music/<track> --timeline videos/<slug>/timeline.json --write
+python3 scripts/measure-peak.py --timeline videos/<slug>/timeline.json   # SFX peaks for <Soundtrack>
 scripts/audio-master.sh in.mov out.mov               # two-pass loudnorm to -14 LUFS, TP <= -1 dBTP
 scripts/encode.sh <slug> youtube whatsapp web        # or: all
 scripts/check.sh videos/<slug>/exports/youtube.mp4 youtube
@@ -61,17 +63,19 @@ All deliverables are 4:2:0, BT.709 limited range, faststart. Any preset with `bu
 
 ```
 CLAUDE.md                        house rules
-.claude/skills/                  video-director, review-loop
+.claude/skills/                  video-director, review-loop, sound-design
 .claude/commands/                /video, /render, /brand
 catalog/                         one .md + preview GIF per component; index.json is generated (npm run catalog)
 docs/                            playbook + link verification
 presets/brand.json               colours, fonts, type sizes
 presets/render.json              destination presets
-scripts/                         master, encode, check, contact-sheet, flash-scan, audio-master, catalog, smoke
+scripts/                         master, encode, check, contact-sheet, flash-scan, audio-master,
+                                 sfx.py, find-drop.py, measure-peak.py, catalog, smoke
 src/lib/                         easing, springs, timeline (+ schema), captions, seeded random, brand
 src/components/                  base components + catalog components (see catalog/README.md)
 src/catalog/                     3 s preview composition per catalog entry
 src/compositions/                Hello and Demo (smoke-test compositions; Demo renders in CI)
+public/audio/                    CC0 synthesised SFX + music bed (scripts/sfx.py), LICENCES.md
 templates/                       prompts 01-05, per-video brief / spec / README skeletons
 videos/<slug>/                   brief, spec, timeline (renders gitignored)
 ```

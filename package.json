@@ -12,7 +12,8 @@
     "render:hello": "remotion render Hello out/hello.mp4",
     "smoke": "bash scripts/smoke.sh",
     "catalog": "tsx scripts/build-catalog.ts",
-    "catalog:previews": "bash scripts/catalog-previews.sh"
+    "catalog:previews": "bash scripts/catalog-previews.sh",
+    "audio:lib": "python3 scripts/sfx.py"
   },
   "dependencies": {
     "@remotion/captions": "4.0.535",

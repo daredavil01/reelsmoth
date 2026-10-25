@@ -16,12 +16,38 @@ export type Beat = {
   hero?: boolean;
 };
 
+export type MusicCue = {
+  /** Path under public/. */
+  src: string;
+  /** Seconds into the track where the drop is (scripts/find-drop.py). */
+  dropAt: number;
+  /** Beat the drop lands on; default the hero beat. */
+  dropOn?: string;
+  volume?: number;
+  fadeIn?: number;
+  fadeOut?: number;
+  duck?: {beat: string; amount?: number}[];
+};
+
+export type SfxCue = {
+  beat: string;
+  /** Path under public/. */
+  src: string;
+  anchor?: 'start' | 'end';
+  /** Seconds after the anchor where the sound's peak lands. */
+  offset?: number;
+  /** Seconds into the file where it peaks (scripts/measure-peak.py). */
+  peak?: number;
+  gain?: number;
+};
+
 export type Timeline = {
   $schema?: string;
   fps: number;
   width: number;
   height: number;
   beats: Beat[];
+  audio?: {music?: MusicCue; sfx?: SfxCue[]};
 };
 
 const BEAT_ID = /^[a-z][a-z0-9-]*$/;
@@ -42,6 +68,16 @@ export const validateTimeline = <T extends Timeline>(t: T): T => {
     if (b.hero) heroes++;
   }
   if (heroes > 1) throw new Error('timeline: more than one hero beat (one hero moment per video)');
+  const known = (id: string, what: string) => {
+    if (!ids.has(id)) throw new Error(`timeline: ${what} refers to unknown beat "${id}"`);
+  };
+  const music = t.audio?.music;
+  if (music) {
+    if (music.dropOn) known(music.dropOn, 'audio.music.dropOn');
+    else if (!heroes) throw new Error('timeline: audio.music needs a hero beat or dropOn');
+    for (const d of music.duck ?? []) known(d.beat, 'audio.music.duck');
+  }
+  for (const c of t.audio?.sfx ?? []) known(c.beat, `sfx cue ${c.src}`);
   return t;
 };
 

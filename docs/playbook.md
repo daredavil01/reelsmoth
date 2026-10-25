@@ -425,17 +425,17 @@ Build the repo in seven phases over about four weeks of evenings. Each phase end
 
 - [x] `.claude/skills/video-director/SKILL.md` (draft above), under 200 lines, pointing to `catalog/index.json` and `presets/`; dry run: `videos/reelsmith-intro/brief.md`
 - [x] `.claude/skills/review-loop/SKILL.md`: contact sheet, score each beat 1-10, fix under 8, pop/flash scan (`scripts/flash-scan.sh`; `contact-sheet.sh --from/--to/--at` to scrub)
-- [ ] `.claude/skills/sound-design/SKILL.md`: music drop on hero beat, SFX on peaks, loudness targets
+- [x] `.claude/skills/sound-design/SKILL.md`: music drop on hero beat, SFX on peaks, loudness targets
 - [x] `.claude/commands/video.md` (`/video <url> <destination>`), `render.md` (`/render <slug> <presets>`), `brand.md` (`/brand <kit>`)
 - [x] `templates/prompts/01-brief.md` to `05-revision.md` (from the Prompt templates section)
 - [x] `templates/video/brief.md`, `spec.md`, `README.md` skeletons for each new video folder
 
 ### Phase 5: Audio
 
-- [ ] `public/audio/music/` and `public/audio/sfx/` with `LICENCES.md` (source URL, licence, attribution text per file)
-- [x] `scripts/audio-master.sh`: two-pass loudnorm to −14 LUFS, true peak ≤ −1 dBTP
-- [ ] `scripts/find-drop.py`: locate the music drop by band energy and align it to the hero beat
-- [ ] Optional voiceover: Kokoro (free, local) or ElevenLabs MCP (paid); keys only in `.env`
+- [x] `public/audio/music/` and `public/audio/sfx/` with `LICENCES.md` (source URL, licence, attribution text per file); starter library synthesised in code by `scripts/sfx.py` (CC0)
+- [x] `scripts/audio-master.sh`: two-pass loudnorm to −14 LUFS, ceiling −1.5 dBTP so AAC/Opus exports stay ≤ −1 dBTP
+- [x] `scripts/find-drop.py`: locate the music drop by band energy and align it to the hero beat (`--write` into `timeline.audio`); `scripts/measure-peak.py` for SFX; `src/components/Soundtrack.tsx` places both
+- [ ] Optional voiceover: Kokoro (free, local) or ElevenLabs MCP (paid); keys only in `.env` (_documented in the sound-design skill and `.env.example`; neither installed yet, waiting on the voiceover open question_)
 
 ### Phase 6: Pilot videos
 

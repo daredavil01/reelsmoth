@@ -1,7 +1,8 @@
 name: smoke
 
 # Typecheck, validate timelines, and render the Demo composition (every base
-# component) as a 540p draft. Fails if anything throws or frame 0 is empty.
+# component, plus its soundtrack) as a 540p draft. Fails if anything throws,
+# frame 0 is empty, or the mastered mix misses -14 LUFS / -1 dBTP.
 on:
   push:
   pull_request:
@@ -22,7 +23,10 @@ jobs:
       - run: npm run validate
       - run: npm run catalog -- --check
       - run: scripts/master.sh Demo demo --draft
-      - run: scripts/check.sh videos/demo/draft.mp4
+      # The draft carries the unmastered mix: master it, then check loudness and frame 0.
+      - run: scripts/audio-master.sh videos/demo/draft.mp4 videos/demo/draft.mastered.mp4
+      - run: scripts/check.sh videos/demo/draft.mastered.mp4
+      - run: python3 scripts/find-drop.py videos/demo/draft.mastered.mp4
       - run: scripts/contact-sheet.sh videos/demo/draft.mp4 src/compositions/demo.timeline.json
       - uses: actions/upload-artifact@v4
         if: always()

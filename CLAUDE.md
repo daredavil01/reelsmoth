@@ -12,8 +12,8 @@ Read this every session. Full background and sources: `docs/playbook.md`.
 1. Brief first (`templates/prompts/01-brief.md`): goal, audience, destination, reference style, beats, components from `catalog/`, music mood, SFX plan. Wait for approval.
 2. Spec + `videos/<slug>/timeline.json`. Beats live only there; scenes, audio and review all read it.
 3. Stills before motion: one PNG per beat (`npx remotion still`), contact sheet, wait for approval.
-4. 540p draft (`scripts/master.sh <Comp> <slug> --draft`), then `scripts/contact-sheet.sh`, score each beat 1-10 on hook, readability, holds, composition, polish. Fix anything under 8 and repeat.
-5. Audio: drop on the hero beat, SFX on measured peaks, `scripts/audio-master.sh` to -14 LUFS, true peak <= -1 dBTP.
+4. 540p draft (`scripts/master.sh <Comp> <slug> --draft`), then the review-loop skill: `scripts/contact-sheet.sh`, `scripts/flash-scan.sh`, score each beat 1-10 on hook, readability, holds, composition, polish. Fix anything under 8 and repeat.
+5. Audio (sound-design skill): cues live in `timeline.json` `audio` and play through `<Soundtrack>`; drop on the hero beat (`scripts/find-drop.py --write`), SFX on measured peaks (`scripts/measure-peak.py --timeline`), `scripts/audio-master.sh` to -14 LUFS, true peak <= -1 dBTP.
 6. Master (`scripts/master.sh`), then `scripts/encode.sh <slug> <presets>`, then `scripts/check.sh` on every export.
 7. Review your own output before showing it. Write `videos/<slug>/README.md`: brief, components, presets, sizes, sources, asset licences.
 

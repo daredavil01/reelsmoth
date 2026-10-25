@@ -6,13 +6,15 @@ import {LowerThird} from '../components/LowerThird';
 import {MaskReveal} from '../components/MaskReveal';
 import {RollingNumber} from '../components/RollingNumber';
 import {SafeArea} from '../components/SafeArea';
+import {Soundtrack} from '../components/Soundtrack';
 import {BRAND} from '../lib/brand';
 import {captionsFromText} from '../lib/captions';
 import {EASE} from '../lib/easing';
 import {beatFrames, validateTimeline, type Timeline} from '../lib/timeline';
 import timelineJson from './demo.timeline.json';
 
-// Smoke-test composition: uses every base component once. Rendered in CI.
+// Smoke-test composition: uses every base component once, plus the
+// Soundtrack placed from demo.timeline.json. Rendered in CI.
 export const demoTimeline = validateTimeline(timelineJson as Timeline);
 
 const COPY = {
@@ -91,6 +93,7 @@ export const Demo: React.FC = () => {
       </Sequence>
       <Grain />
       <SafeArea />
+      <Soundtrack timeline={demoTimeline} />
     </AbsoluteFill>
   );
 };

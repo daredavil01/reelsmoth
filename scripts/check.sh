@@ -35,9 +35,11 @@ case "$CODEC" in
 esac
 
 # Frame 0 is the feed thumbnail: it must carry content, not a black or empty
-# background. Brightest luma on the first frame >= 80 means something reads.
+# background. Brightest luma on the first frame >= 80 (8-bit) means something reads.
 Y0=$(ffmpeg -nostdin -v error -i "$FILE" -frames:v 1 -vf "signalstats,metadata=print:key=lavfi.signalstats.YMAX:file=-" -f null - 2>/dev/null | awk -F= '/YMAX/ {print $2; exit}')
-[[ -z "$Y0" ]] && info "frame 0 not measured" || { (( Y0 >= 80 )) && ok "frame 0 has content (max luma ${Y0})" || bad "frame 0 looks empty (max luma ${Y0}); open on the hook"; }
+# signalstats reports in the stream's bit depth: scale the 8-bit threshold.
+Y0MIN=80; [[ "$PIX" =~ 10(le|be)$ ]] && Y0MIN=320; [[ "$PIX" =~ 12(le|be)$ ]] && Y0MIN=1280
+[[ -z "$Y0" ]] && info "frame 0 not measured" || { (( Y0 >= Y0MIN )) && ok "frame 0 has content (max luma ${Y0})" || bad "frame 0 looks empty (max luma ${Y0}); open on the hook"; }
 
 if [[ "$FILE" == *.mp4 ]]; then
   # faststart: the moov atom must come before mdat.
