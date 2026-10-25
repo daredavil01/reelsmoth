@@ -1,0 +1,12 @@
+{
+  "$schema": "../lib/timeline.schema.json",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "beats": [
+    {"id": "hook", "start": 0, "duration": 2.8, "label": "MaskReveal headline, readable on frame 0"},
+    {"id": "stat", "start": 2.7, "duration": 3.1, "label": "RollingNumber count-up", "hero": true},
+    {"id": "credit", "start": 5.6, "duration": 2.8, "label": "LowerThird + Captions"},
+    {"id": "outro", "start": 8.2, "duration": 2.4, "label": "Final line, held >= 2 s"}
+  ]
+}

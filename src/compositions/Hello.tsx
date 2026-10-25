@@ -20,8 +20,8 @@ const Kicker: React.FC = () => (
   <div
     style={{
       fontFamily: BRAND.fonts.mono,
-      fontSize: 28,
-      letterSpacing: '0.3em',
+      fontSize: BRAND.type.labelPx,
+      letterSpacing: BRAND.type.labelTracking,
       color: BRAND.colors.accent,
       marginBottom: 36,
     }}

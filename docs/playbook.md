@@ -408,11 +408,11 @@ Build the repo in seven phases over about four weeks of evenings. Each phase end
 ### Phase 2: Motion library
 
 - [x] `src/lib/easing.ts`: entrance, exit, move, overshoot curves
-- [x] `src/lib/springs.ts`: default, heavy, pop, elastic presets + timing constants (notch still to add)
-- [ ] `src/lib/timeline.ts` + `timeline.schema.json`: load beats by name, validate, no hardcoded times (_timeline.ts done; schema to do_)
+- [x] `src/lib/springs.ts`: default, heavy, notch, pop, elastic presets + timing constants + `springAt()`
+- [x] `src/lib/timeline.ts` + `src/lib/timeline.schema.json`: load beats by name, validate, no hardcoded times (`npm run validate`)
 - [x] `src/lib/rand.ts`: seeded random only
-- [ ] `src/components/`: `Background` (grid + vignette), `Grain`, `MaskReveal`, `RollingNumber`, `LowerThird`, `Captions`, `SafeArea` (debug overlay) (_Background, Grain, MaskReveal, SafeArea done_)
-- [ ] `src/compositions/Demo.tsx`: exercises every component; rendered in CI as a smoke test
+- [x] `src/components/`: `Background` (grid + vignette), `Grain`, `MaskReveal`, `RollingNumber`, `LowerThird`, `Captions`, `SafeArea` (debug overlay)
+- [x] `src/compositions/Demo.tsx`: exercises every component; rendered in CI as a smoke test (`.github/workflows/smoke.yml`)
 
 ### Phase 3: Component catalog
 

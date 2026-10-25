@@ -1,8 +1,10 @@
 {
   "name": "default",
+  "wordmark": "REELSMITH",
   "colors": {
     "bg": "#0E0F12",
     "surface": "#1A1C21",
+    "line": "rgba(255,255,255,0.08)",
     "text": "#F4F1EA",
     "muted": "#9A9AA3",
     "accent": "#FF6B3D"
@@ -10,12 +12,19 @@
   "fonts": {
     "display": "Inter, 'Helvetica Neue', Arial, sans-serif",
     "body": "Inter, 'Helvetica Neue', Arial, sans-serif",
+    "serif": "'Instrument Serif', Georgia, 'Times New Roman', serif",
     "mono": "'JetBrains Mono', 'SFMono-Regular', Menlo, monospace"
   },
   "type": {
     "displayPx": 138,
     "displayTracking": "-0.02em",
-    "bodyPx": 44
+    "statPx": 220,
+    "titlePx": 84,
+    "bodyPx": 44,
+    "captionPx": 64,
+    "lowerThirdPx": 56,
+    "labelPx": 28,
+    "labelTracking": "0.22em"
   },
   "logo": null
 }

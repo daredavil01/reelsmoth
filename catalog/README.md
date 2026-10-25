@@ -26,6 +26,9 @@ preview: masked-headline.gif   # 3 s, 480 px, Git LFS
 | masked-headline | intros | `src/components/MaskReveal.tsx` | Words rise out of a mask, 0.09 s stagger, ~0.8 s each. `preroll` makes frame 0 read. |
 | grid-background | texture | `src/components/Background.tsx` | Dark canvas, drifting grid, vignette. |
 | film-grain | texture | `src/components/Grain.tsx` | Seeded per-frame grain at ~0.09 opacity. |
+| count-up-stat | data-viz | `src/components/RollingNumber.tsx` | Odometer digits, tabular mono, lands exactly on the value. |
+| lower-third | text | `src/components/LowerThird.tsx` | Accent bar pops (SPRING.pop), text follows; exits at the end of its Sequence. |
+| kinetic-captions | text | `src/components/Captions.tsx` | @remotion/captions pages, active word in accent. `captionsFromText()` when there is no transcript. |
 | safe-area | debug | `src/components/SafeArea.tsx` | Studio-only overlay: 60 px margin, optional Reels zones. |
 
 ## Planned first 15 (Phase 3)

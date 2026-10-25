@@ -34,6 +34,11 @@ case "$CODEC" in
      [[ "$RANGE" == tv ]] && ok "limited (TV) range" || bad "colour range '${RANGE}', expected tv" ;;
 esac
 
+# Frame 0 is the feed thumbnail: it must carry content, not a black or empty
+# background. Brightest luma on the first frame >= 80 means something reads.
+Y0=$(ffmpeg -nostdin -v error -i "$FILE" -frames:v 1 -vf "signalstats,metadata=print:key=lavfi.signalstats.YMAX:file=-" -f null - 2>/dev/null | awk -F= '/YMAX/ {print $2; exit}')
+[[ -z "$Y0" ]] && info "frame 0 not measured" || { (( Y0 >= 80 )) && ok "frame 0 has content (max luma ${Y0})" || bad "frame 0 looks empty (max luma ${Y0}); open on the hook"; }
+
 if [[ "$FILE" == *.mp4 ]]; then
   # faststart: the moov atom must come before mdat.
   if head -c 1048576 "$FILE" | grep -aob 'moov' >/dev/null && \

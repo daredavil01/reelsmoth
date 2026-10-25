@@ -12,6 +12,8 @@ Needs Node 20+ and FFmpeg (with libx264, libsvtav1, libvpx-vp9, libopus), plus `
 npm install
 npm run dev                 # Remotion Studio: live preview while Claude edits
 npm run smoke               # render the Hello master, export every preset, check each file
+npm run demo                # 540p draft of the Demo composition (every base component) + contact sheet
+npm run validate            # check every timeline.json against the house rules
 ```
 
 Install the official Remotion plugin for Claude Code once:
@@ -65,9 +67,9 @@ docs/                            playbook + link verification
 presets/brand.json               colours, fonts, type sizes
 presets/render.json              destination presets
 scripts/                         master, encode, check, contact-sheet, audio-master, smoke
-src/lib/                         easing, springs, timeline, seeded random, brand
-src/components/                  Background, Grain, MaskReveal, SafeArea
-src/compositions/                Hello (smoke-test composition)
+src/lib/                         easing, springs, timeline (+ schema), captions, seeded random, brand
+src/components/                  Background, Grain, MaskReveal, RollingNumber, LowerThird, Captions, SafeArea
+src/compositions/                Hello and Demo (smoke-test compositions; Demo renders in CI)
 templates/                       prompts 01-05, per-video brief skeleton
 videos/<slug>/                   brief, spec, timeline (renders gitignored)
 ```
