@@ -18,8 +18,9 @@ mth=$(jq -r .input_thresh <<<"$m"); off=$(jq -r .target_offset <<<"$m")
 echo "Measured ${mi} LUFS, true peak ${mtp} dBTP; normalising to ${I} LUFS / ${TP} dBTP"
 
 # pcm for .mov masters, AAC 384k otherwise.
+# faststart keeps MP4 deliverables streamable (check.sh requires it); harmless for .mov.
 acodec=(-c:a aac -b:a 384k); [[ "$OUT" == *.mov ]] && acodec=(-c:a pcm_s16le)
 ffmpeg -nostdin -v error -y -i "$IN" -map 0:v? -map 0:a:0 -c:v copy \
   -af "loudnorm=I=$I:TP=$TP:LRA=$LRA:measured_I=$mi:measured_TP=$mtp:measured_LRA=$mlra:measured_thresh=$mth:offset=$off:linear=true" \
-  -ar 48000 "${acodec[@]}" "$OUT"
+  -ar 48000 "${acodec[@]}" -movflags +faststart "$OUT"
 echo "Done: $OUT"
