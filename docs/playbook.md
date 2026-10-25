@@ -423,12 +423,12 @@ Build the repo in seven phases over about four weeks of evenings. Each phase end
 
 ### Phase 4: Skills, commands and prompts
 
-- [x] `.claude/skills/video-director/SKILL.md` (draft above), under 200 lines, pointing to `catalog/` and `presets/`
-- [ ] `.claude/skills/review-loop/SKILL.md`: contact sheet, score each beat 1-10, fix under 8, pop/flash scan
+- [x] `.claude/skills/video-director/SKILL.md` (draft above), under 200 lines, pointing to `catalog/index.json` and `presets/`; dry run: `videos/reelsmith-intro/brief.md`
+- [x] `.claude/skills/review-loop/SKILL.md`: contact sheet, score each beat 1-10, fix under 8, pop/flash scan (`scripts/flash-scan.sh`; `contact-sheet.sh --from/--to/--at` to scrub)
 - [ ] `.claude/skills/sound-design/SKILL.md`: music drop on hero beat, SFX on peaks, loudness targets
-- [ ] `.claude/commands/video.md` (`/video <url> <destination>`), `render.md` (`/render <slug> <presets>`), `brand.md` (_video and render done; brand to do_)
+- [x] `.claude/commands/video.md` (`/video <url> <destination>`), `render.md` (`/render <slug> <presets>`), `brand.md` (`/brand <kit>`)
 - [x] `templates/prompts/01-brief.md` to `05-revision.md` (from the Prompt templates section)
-- [ ] `templates/video/brief.md`, `spec.md`, `README.md` skeletons for each new video folder (_brief.md done_)
+- [x] `templates/video/brief.md`, `spec.md`, `README.md` skeletons for each new video folder
 
 ### Phase 5: Audio
 

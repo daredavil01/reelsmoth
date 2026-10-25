@@ -19,9 +19,9 @@
 <e.g. Apple keynote, editorial data story, playful line-art.>
 
 ## Beats
-| # | Beat id | Start | Duration | On-screen copy | Component (catalog id) | Transition out (motivating object) |
-| --- | --- | --- | --- | --- | --- | --- |
-| 1 | hook | 0.0 | 2.0 | | | |
+| # | Beat id | Start | Duration | On-screen copy | Component (catalog id) | Preview | Transition out (motivating object) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | hook | 0.0 | 2.0 | | | | |
 
 ## Audio
 - Music mood: <...>; drop lands on beat <id>
