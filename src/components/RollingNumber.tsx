@@ -53,7 +53,7 @@ export const RollingNumber: React.FC<{
     const intK = k - decimals;
     if (separator && intK > 0 && intK % 3 === 0) {
       digits.push(
-        <span key={`s${k}`} style={{opacity: leadOpacity}}>
+        <span key={`s${k}`} style={{display: 'inline-block', width: `${leadOpacity}ch`, overflow: 'hidden', opacity: leadOpacity}}>
           {separator}
         </span>,
       );
@@ -78,10 +78,12 @@ export const RollingNumber: React.FC<{
   );
 };
 
+// Leading digits that haven't arrived yet collapse to zero width (1ch is
+// one digit in a mono face), so the prefix sits against the number.
 const Digit: React.FC<{pos: number; opacity: number}> = ({pos, opacity}) => {
   const d = ((pos % 10) + 10) % 10;
   return (
-    <span style={{display: 'inline-block', height: '1em', overflow: 'hidden', opacity, position: 'relative'}}>
+    <span style={{display: 'inline-block', width: `${opacity}ch`, height: '1em', overflow: 'hidden', opacity, position: 'relative'}}>
       {/* Strip 0..9 then 0 again, so 9 -> 0 rolls instead of jumping back. */}
       <span style={{display: 'flex', flexDirection: 'column', transform: `translateY(${-d}em)`}}>
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((x, i) => (

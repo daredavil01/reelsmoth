@@ -1,9 +1,14 @@
 import {AbsoluteFill, getRemotionEnvironment} from 'remotion';
 
 // Debug overlay: shows the 60 px safe margin (and optional social safe zones)
-// in Studio only. Never appears in renders.
-export const SafeArea: React.FC<{marginPx?: number; social?: boolean}> = ({marginPx = 60, social = false}) => {
-  if (!getRemotionEnvironment().isStudio) return null;
+// in Studio only. Never appears in renders unless `force` is set (catalog
+// preview only).
+export const SafeArea: React.FC<{marginPx?: number; social?: boolean; force?: boolean}> = ({
+  marginPx = 60,
+  social = false,
+  force = false,
+}) => {
+  if (!force && !getRemotionEnvironment().isStudio) return null;
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
       <AbsoluteFill style={{inset: marginPx, border: '2px dashed rgba(0,255,170,0.6)'}} />

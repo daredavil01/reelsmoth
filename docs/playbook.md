@@ -416,10 +416,10 @@ Build the repo in seven phases over about four weeks of evenings. Each phase end
 
 ### Phase 3: Component catalog
 
-- [ ] `catalog/<category>/<id>.md` with frontmatter: id, category, engine, duration, params, best-for, source URL, licence
-- [ ] One Remotion composition per entry under `src/catalog/`, rendered to `catalog/<category>/<id>.gif` (3 s, 480 px)
-- [ ] `scripts/build-catalog.ts` → `catalog/index.json` (what the director skill reads)
-- [ ] First 15: hook cold open, masked headline, push-in title, editorial poster, chapter card, prompt-type demo, count-up stat, bar race, map route, quote card, UI showcase, kinetic captions, logo outro, CTA end card, loop seam
+- [x] `catalog/<category>/<id>.md` with frontmatter: id, category, engine, duration, params, best-for, source URL, licence
+- [x] One Remotion composition per entry under `src/catalog/`, rendered to `catalog/<category>/<id>.gif` (3 s, 480 px) by `scripts/catalog-previews.sh`
+- [x] `scripts/build-catalog.ts` → `catalog/index.json` (what the director skill reads; `npm run catalog`, `--check` in CI)
+- [x] First 15 (plus lower-third, scene-transitions, grid-background, film-grain, safe-area = 20 entries): hook cold open, masked headline, push-in title, editorial poster, chapter card, prompt-type demo, count-up stat, bar race, map route, quote card, UI showcase, kinetic captions, logo outro, CTA end card, loop seam
 
 ### Phase 4: Skills, commands and prompts
 

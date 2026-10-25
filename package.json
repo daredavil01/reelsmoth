@@ -10,7 +10,9 @@
     "validate": "tsx scripts/validate-timeline.ts src/compositions/*.timeline.json $(ls videos/*/timeline.json 2>/dev/null)",
     "demo": "bash scripts/master.sh Demo demo --draft && bash scripts/contact-sheet.sh videos/demo/draft.mp4 src/compositions/demo.timeline.json",
     "render:hello": "remotion render Hello out/hello.mp4",
-    "smoke": "bash scripts/smoke.sh"
+    "smoke": "bash scripts/smoke.sh",
+    "catalog": "tsx scripts/build-catalog.ts",
+    "catalog:previews": "bash scripts/catalog-previews.sh"
   },
   "dependencies": {
     "@remotion/captions": "4.0.535",

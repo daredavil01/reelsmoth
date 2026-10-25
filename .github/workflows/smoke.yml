@@ -20,6 +20,7 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run validate
+      - run: npm run catalog -- --check
       - run: scripts/master.sh Demo demo --draft
       - run: scripts/check.sh videos/demo/draft.mp4
       - run: scripts/contact-sheet.sh videos/demo/draft.mp4 src/compositions/demo.timeline.json

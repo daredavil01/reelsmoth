@@ -62,13 +62,14 @@ All deliverables are 4:2:0, BT.709 limited range, faststart. Any preset with `bu
 CLAUDE.md                        house rules
 .claude/skills/video-director/   the director skill
 .claude/commands/                /video, /render
-catalog/                         one .md per component (index in catalog/README.md)
+catalog/                         one .md + preview GIF per component; index.json is generated (npm run catalog)
 docs/                            playbook + link verification
 presets/brand.json               colours, fonts, type sizes
 presets/render.json              destination presets
 scripts/                         master, encode, check, contact-sheet, audio-master, smoke
 src/lib/                         easing, springs, timeline (+ schema), captions, seeded random, brand
-src/components/                  Background, Grain, MaskReveal, RollingNumber, LowerThird, Captions, SafeArea
+src/components/                  base components + catalog components (see catalog/README.md)
+src/catalog/                     3 s preview composition per catalog entry
 src/compositions/                Hello and Demo (smoke-test compositions; Demo renders in CI)
 templates/                       prompts 01-05, per-video brief skeleton
 videos/<slug>/                   brief, spec, timeline (renders gitignored)

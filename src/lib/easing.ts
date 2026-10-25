@@ -1,4 +1,4 @@
-import {Easing} from 'remotion';
+import {Easing, interpolate} from 'remotion';
 
 // Motion defaults from whaleyxbt/claude-motion (motion-design SKILL.md).
 export const EASE = {
@@ -13,3 +13,9 @@ export const EASE = {
   /** Continuous motion only: rotation, drift, grain. */
   linear: Easing.linear,
 } as const;
+
+export const CLAMP = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
+
+/** 0 -> 1 progress between two frames with an easing, clamped at both ends. */
+export const prog = (frame: number, startFrame: number, endFrame: number, ease: (t: number) => number = EASE.enter): number =>
+  interpolate(frame, [startFrame, endFrame], [0, 1], {easing: ease, ...CLAMP});
